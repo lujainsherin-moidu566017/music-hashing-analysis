@@ -1,0 +1,314 @@
+============================================================
+   MUSIC APPLICATION - HASHING & SEARCH PERFORMANCE ANALYSIS
+============================================================
+
+PROGRAM CONFIGURATION:
+ - Number of Song IDs to store : 8
+ - Hash Table Size             : 10
+ - Hash Function               : h(key) = key % 10
+ - Collision Resolution Policy : Linear Probing [ (h(key) + i) % 10 ]
+
+INITIAL HASH TABLE STATE (All 10 slots empty):
++-------+-------------+
+| Index |   Song ID   |
++-------+-------------+
+|   0   |    EMPTY    |
+|   1   |    EMPTY    |
+|   2   |    EMPTY    |
+|   3   |    EMPTY    |
+|   4   |    EMPTY    |
+|   5   |    EMPTY    |
+|   6   |    EMPTY    |
+|   7   |    EMPTY    |
+|   8   |    EMPTY    |
+|   9   |    EMPTY    |
++-------+-------------+
+
+============================================================
+PART A: INSERTION PROCESS (WITH COLLISION RESOLUTION)
+============================================================
+------------------------------------------------------------
+Inserting Song ID : 105
+Initial Hash Index: h(105) = 105 % 10 = 5
+No collision. Slot 5 is directly available.
+Final Position: Song ID 105 successfully inserted at Index [5].
+
+Hash Table State after inserting Song ID 105:
++-------+-------------+
+| Index |   Song ID   |
++-------+-------------+
+|   0   |    EMPTY    |
+|   1   |    EMPTY    |
+|   2   |    EMPTY    |
+|   3   |    EMPTY    |
+|   4   |    EMPTY    |
+|   5   |     105     |
+|   6   |    EMPTY    |
+|   7   |    EMPTY    |
+|   8   |    EMPTY    |
+|   9   |    EMPTY    |
++-------+-------------+
+
+------------------------------------------------------------
+Inserting Song ID : 210
+Initial Hash Index: h(210) = 210 % 10 = 0
+No collision. Slot 0 is directly available.
+Final Position: Song ID 210 successfully inserted at Index [0].
+
+Hash Table State after inserting Song ID 210:
++-------+-------------+
+| Index |   Song ID   |
++-------+-------------+
+|   0   |     210     |
+|   1   |    EMPTY    |
+|   2   |    EMPTY    |
+|   3   |    EMPTY    |
+|   4   |    EMPTY    |
+|   5   |     105     |
+|   6   |    EMPTY    |
+|   7   |    EMPTY    |
+|   8   |    EMPTY    |
+|   9   |    EMPTY    |
++-------+-------------+
+
+------------------------------------------------------------
+Inserting Song ID : 315
+Initial Hash Index: h(315) = 315 % 10 = 5
+COLLISION DETECTED at index 5 (Occupied by Song ID 105)!
+Resolving collision using Linear Probing...
+ -> Checked index 5: OCCUPIED by Song ID 105
+ -> Checked index 6: EMPTY slot found.
+Collision resolved after 1 probe step(s).
+Final Position: Song ID 315 successfully inserted at Index [6].
+
+Hash Table State after inserting Song ID 315:
++-------+-------------+
+| Index |   Song ID   |
++-------+-------------+
+|   0   |     210     |
+|   1   |    EMPTY    |
+|   2   |    EMPTY    |
+|   3   |    EMPTY    |
+|   4   |    EMPTY    |
+|   5   |     105     |
+|   6   |     315     |
+|   7   |    EMPTY    |
+|   8   |    EMPTY    |
+|   9   |    EMPTY    |
++-------+-------------+
+
+------------------------------------------------------------
+Inserting Song ID : 420
+Initial Hash Index: h(420) = 420 % 10 = 0
+COLLISION DETECTED at index 0 (Occupied by Song ID 210)!
+Resolving collision using Linear Probing...
+ -> Checked index 0: OCCUPIED by Song ID 210
+ -> Checked index 1: EMPTY slot found.
+Collision resolved after 1 probe step(s).
+Final Position: Song ID 420 successfully inserted at Index [1].
+
+Hash Table State after inserting Song ID 420:
++-------+-------------+
+| Index |   Song ID   |
++-------+-------------+
+|   0   |     210     |
+|   1   |     420     |
+|   2   |    EMPTY    |
+|   3   |    EMPTY    |
+|   4   |    EMPTY    |
+|   5   |     105     |
+|   6   |     315     |
+|   7   |    EMPTY    |
+|   8   |    EMPTY    |
+|   9   |    EMPTY    |
++-------+-------------+
+
+------------------------------------------------------------
+Inserting Song ID : 525
+Initial Hash Index: h(525) = 525 % 10 = 5
+COLLISION DETECTED at index 5 (Occupied by Song ID 105)!
+Resolving collision using Linear Probing...
+ -> Checked index 5: OCCUPIED by Song ID 105
+ -> Checked index 6: OCCUPIED by Song ID 315
+ -> Checked index 7: EMPTY slot found.
+Collision resolved after 2 probe step(s).
+Final Position: Song ID 525 successfully inserted at Index [7].
+
+Hash Table State after inserting Song ID 525:
++-------+-------------+
+| Index |   Song ID   |
++-------+-------------+
+|   0   |     210     |
+|   1   |     420     |
+|   2   |    EMPTY    |
+|   3   |    EMPTY    |
+|   4   |    EMPTY    |
+|   5   |     105     |
+|   6   |     315     |
+|   7   |     525     |
+|   8   |    EMPTY    |
+|   9   |    EMPTY    |
++-------+-------------+
+
+------------------------------------------------------------
+Inserting Song ID : 630
+Initial Hash Index: h(630) = 630 % 10 = 0
+COLLISION DETECTED at index 0 (Occupied by Song ID 210)!
+Resolving collision using Linear Probing...
+ -> Checked index 0: OCCUPIED by Song ID 210
+ -> Checked index 1: OCCUPIED by Song ID 420
+ -> Checked index 2: EMPTY slot found.
+Collision resolved after 2 probe step(s).
+Final Position: Song ID 630 successfully inserted at Index [2].
+
+Hash Table State after inserting Song ID 630:
++-------+-------------+
+| Index |   Song ID   |
++-------+-------------+
+|   0   |     210     |
+|   1   |     420     |
+|   2   |     630     |
+|   3   |    EMPTY    |
+|   4   |    EMPTY    |
+|   5   |     105     |
+|   6   |     315     |
+|   7   |     525     |
+|   8   |    EMPTY    |
+|   9   |    EMPTY    |
++-------+-------------+
+
+------------------------------------------------------------
+Inserting Song ID : 735
+Initial Hash Index: h(735) = 735 % 10 = 5
+COLLISION DETECTED at index 5 (Occupied by Song ID 105)!
+Resolving collision using Linear Probing...
+ -> Checked index 5: OCCUPIED by Song ID 105
+ -> Checked index 6: OCCUPIED by Song ID 315
+ -> Checked index 7: OCCUPIED by Song ID 525
+ -> Checked index 8: EMPTY slot found.
+Collision resolved after 3 probe step(s).
+Final Position: Song ID 735 successfully inserted at Index [8].
+
+Hash Table State after inserting Song ID 735:
++-------+-------------+
+| Index |   Song ID   |
++-------+-------------+
+|   0   |     210     |
+|   1   |     420     |
+|   2   |     630     |
+|   3   |    EMPTY    |
+|   4   |    EMPTY    |
+|   5   |     105     |
+|   6   |     315     |
+|   7   |     525     |
+|   8   |     735     |
+|   9   |    EMPTY    |
++-------+-------------+
+
+------------------------------------------------------------
+Inserting Song ID : 840
+Initial Hash Index: h(840) = 840 % 10 = 0
+COLLISION DETECTED at index 0 (Occupied by Song ID 210)!
+Resolving collision using Linear Probing...
+ -> Checked index 0: OCCUPIED by Song ID 210
+ -> Checked index 1: OCCUPIED by Song ID 420
+ -> Checked index 2: OCCUPIED by Song ID 630
+ -> Checked index 3: EMPTY slot found.
+Collision resolved after 3 probe step(s).
+Final Position: Song ID 840 successfully inserted at Index [3].
+
+Hash Table State after inserting Song ID 840:
++-------+-------------+
+| Index |   Song ID   |
++-------+-------------+
+|   0   |     210     |
+|   1   |     420     |
+|   2   |     630     |
+|   3   |     840     |
+|   4   |    EMPTY    |
+|   5   |     105     |
+|   6   |     315     |
+|   7   |     525     |
+|   8   |     735     |
+|   9   |    EMPTY    |
++-------+-------------+
+
+============================================================
+LOAD FACTOR CALCULATION:
+============================================================
+Load Factor (alpha) = Number of Stored Elements / Table Size
+                    = 8 / 10
+                    = 0.80 (80% full)
+
+============================================================
+PART B: SEARCH PERFORMANCE ANALYSIS (HASHING vs LINEAR)
+============================================================
+
+
+>>> SEARCH TEST CASE 1: Target Song ID = 105 <<<
+------------------------------------------------------------
+Hashing Search for Song ID: 105
+Initial Hash Index        : h(105) = 105 % 10 = 5
+Probe Path                : [5] -> MATCH FOUND!
+Result: SUCCESS (Found at Hash Table Index 5 in 1 comparison(s))
+------------------------------------------------------------
+Linear Search for Song ID : 105
+Comparison Sequence       : [Index 0: 105] -> MATCH FOUND!
+Result: SUCCESS (Found at Array Index 0 in 1 comparison(s))
+
+>>> SEARCH TEST CASE 2: Target Song ID = 420 <<<
+------------------------------------------------------------
+Hashing Search for Song ID: 420
+Initial Hash Index        : h(420) = 420 % 10 = 0
+Probe Path                : [0] (Song 210) -> [1] -> MATCH FOUND!
+Result: SUCCESS (Found at Hash Table Index 1 in 2 comparison(s))
+------------------------------------------------------------
+Linear Search for Song ID : 420
+Comparison Sequence       : [Index 0: 105] -> [Index 1: 210] -> [Index 2: 315] -> [Index 3: 420] -> MATCH FOUND!
+Result: SUCCESS (Found at Array Index 3 in 4 comparison(s))
+
+>>> SEARCH TEST CASE 3: Target Song ID = 840 <<<
+------------------------------------------------------------
+Hashing Search for Song ID: 840
+Initial Hash Index        : h(840) = 840 % 10 = 0
+Probe Path                : [0] (Song 210) -> [1] (Song 420) -> [2] (Song 630) -> [3] -> MATCH FOUND!
+Result: SUCCESS (Found at Hash Table Index 3 in 4 comparison(s))
+------------------------------------------------------------
+Linear Search for Song ID : 840
+Comparison Sequence       : [Index 0: 105] -> [Index 1: 210] -> [Index 2: 315] -> [Index 3: 420] -> [Index 4: 525] -> [Index 5: 630] -> [Index 6: 735] -> [Index 7: 840] -> MATCH FOUND!
+Result: SUCCESS (Found at Array Index 7 in 8 comparison(s))
+
+>>> SEARCH TEST CASE 4: Target Song ID = 500 <<<
+------------------------------------------------------------
+Hashing Search for Song ID: 500
+Initial Hash Index        : h(500) = 500 % 10 = 0
+Probe Path                : [0] (Song 210) -> [1] (Song 420) -> [2] (Song 630) -> [3] (Song 840) -> [4]
+Slot [4] is EMPTY -> Search terminates.
+Result: FAILURE (Song ID 500 NOT FOUND after 5 comparison(s))
+------------------------------------------------------------
+Linear Search for Song ID : 500
+Comparison Sequence       : [Index 0: 105] -> [Index 1: 210] -> [Index 2: 315] -> [Index 3: 420] -> [Index 4: 525] -> [Index 5: 630] -> [Index 6: 735] -> [Index 7: 840] -> END OF ARRAY
+Result: FAILURE (Song ID 500 NOT FOUND after 8 comparison(s))
+
+========================================================================================
+SEARCH PERFORMANCE COMPARISON TABLE
+========================================================================================
+| Search ID | Target Type   | Hashing Probes | Linear Comparisons | Faster Method       |
++-----------+---------------+----------------+--------------------+---------------------+
+|    105    | Successful    |        1       |          1         | Tie (Equal)         |
+|    420    | Successful    |        2       |          4         | Hashing is Faster   |
+|    840    | Successful    |        4       |          8         | Hashing is Faster   |
+|    500    | Unsuccessful   |        5       |          8         | Hashing is Faster   |
++-----------+---------------+----------------+--------------------+---------------------+
+| TOTAL     | -             |       12       |         21         | Hashing Won Overall |
+| AVERAGE   | -             |      3.00      |        5.25        | Hashing Won Overall |
+========================================================================================
+
+FINAL SUMMARY & OBSERVATIONS:
+1. Collisions occurred for 6 out of 8 insertions because all song IDs
+   end in 5 or 0, clustering at hash indices 5 and 0.
+2. Despite clustering, Hashing required only 12 total comparisons versus
+   21 comparisons for Linear Search across the 4 search test cases.
+3. Hashing achieved an average search cost of 3.00 comparisons vs 5.25 for Linear Search,
+   proving Hashing is significantly more efficient for the music application.
+============================================================

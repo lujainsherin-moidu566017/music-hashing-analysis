@@ -1,0 +1,29 @@
+============================================================
+MUSIC APPLICATION - INPUT DATASET
+============================================================
+
+Total Number of Song IDs to Insert: 8
+Hash Table Size (M)               : 10
+Collision Resolution Strategy     : Linear Probing
+Hash Function                     : h(key) = key % 10
+
+------------------------------------------------------------
+Song IDs (Insertion Sequence):
+------------------------------------------------------------
+105
+210
+315
+420
+525
+630
+735
+840
+
+------------------------------------------------------------
+Search Keys (Verification Sequence):
+------------------------------------------------------------
+105   (Expected: Successful Search)
+420   (Expected: Successful Search)
+840   (Expected: Successful Search)
+500   (Expected: Unsuccessful Search)
+============================================================
